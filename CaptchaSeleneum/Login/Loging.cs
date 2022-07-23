@@ -7,7 +7,6 @@ using System.Threading;
 namespace CaptchaSeleneum.Login
 {
     [TestFixture]
-    [Parallelizable]
     public class Loging
     {
         IWebDriver webDriver = null;
@@ -41,13 +40,17 @@ namespace CaptchaSeleneum.Login
             done.Click();
             Thread.Sleep(milliSeconds);
 
-            String framename = webDriver.FindElement(By.XPath("//*[@id='ccc']")).GetAttribute("src");
-            webDriver.SwitchTo().Frame(framename);
-            //webDriver.FindElement(By.XPath("//*[@id='ccc']")).Click();
-            webElement.SendKeys(framename);
-
-            webElement = webDriver.FindElement(By.TagName("input"));
             String title = webElement.GetAttribute("src");
+            //var framename = webDriver.FindElement(By.Id("ccc"));
+
+            //webDriver.SwitchTo().Frame(framename);
+
+            //webDriver.FindElement(By.XPath("//*[@id='ccc']")).Click();
+
+            ////webElement.SendKeys(framename);
+
+            //webElement = webDriver.FindElement(By.TagName("input"));
+            
         }
         
         [TearDown]
