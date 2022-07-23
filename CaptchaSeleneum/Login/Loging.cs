@@ -9,7 +9,6 @@ using System.Threading;
 namespace CaptchaSeleneum.Login
 {
     [TestFixture]
-    [Parallelizable]
     public class Loging
     {
         IWebDriver webDriver = null;
