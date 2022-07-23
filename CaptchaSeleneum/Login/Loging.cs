@@ -1,7 +1,9 @@
-﻿using NUnit.Framework;
+﻿using IronOcr;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Net;
 using System.Threading;
 
 namespace CaptchaSeleneum.Login
@@ -37,14 +39,26 @@ namespace CaptchaSeleneum.Login
             webDriver.FindElement(By.LinkText("Challenge typing speed")).Click();
             Thread.Sleep(milliSeconds);
 
-            var done = webDriver.FindElement(By.Id("btnSubmitId"));
-            done.Click();
-            Thread.Sleep(milliSeconds);
+            //var done = webDriver.FindElement(By.Id("btnSubmitId"));
+            //done.Click();
+            //Thread.Sleep(milliSeconds);
 
-            String framename = webDriver.FindElement(By.XPath("//*[@id='ccc']")).GetAttribute("src");
-            webDriver.SwitchTo().Frame(framename);
+            var framename = webDriver.FindElement(By.Id("ccc"));
+            String ImageUrl = framename.GetAttribute("src");
+            string ImageName = framename.GetAttribute("alt");
+
+            var ocr = new IronTesseract();
+            using (var input = new OcrInput(@"C:\Users\hassa\Desktop\New folder\CaptchaSeleneum\CaptchaSeleneum\imging\C1.png"))
+            {
+                var result = ocr.Read(input);
+
+                result.SaveAsTextFile(@"C:\Users\hassa\Desktop\New folder\CaptchaSeleneum\CaptchaSeleneum\imging\CAP.txt");
+            }
+
+
             //webDriver.FindElement(By.XPath("//*[@id='ccc']")).Click();
-            webElement.SendKeys(framename);
+
+            //webElement.SendKeys(framename);
 
             webElement = webDriver.FindElement(By.TagName("input"));
             String title = webElement.GetAttribute("src");
